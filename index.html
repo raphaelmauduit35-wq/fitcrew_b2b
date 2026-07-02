@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600;1,700&amp;display=swap" rel="stylesheet">
+<style>
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{ font-family:'Montserrat',system-ui,sans-serif; color:#131613; background:#0e0f0d; -webkit-font-smoothing:antialiased; }
+  ::selection{ background:#cdeab8; }
+  .fc-scroll::-webkit-scrollbar{ width:10px; height:10px; }
+  .fc-scroll::-webkit-scrollbar-thumb{ background:#d9ddd3; border-radius:8px; border:2px solid transparent; background-clip:content-box; }
+  @keyframes fcFade{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:none; } }
+  @keyframes fcToast{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:none; } }
+  input,textarea,button,select{ font-family:inherit; }
+  input:focus,textarea:focus{ outline:none; }
+</style>
+</helmet>
+
+<div style="min-height:100vh; background:#0e0f0d;">
+
+  <!-- ============ LOGIN ============ -->
+  <sc-if value="{{ isLogin }}" hint-placeholder-val="{{ true }}">
+  <div style="min-height:100vh; display:grid; grid-template-columns:1.05fr 1fr; background:#f4f6f2;">
+    <div style="position:relative; background:#121212; padding:64px 72px; display:flex; flex-direction:column; justify-content:space-between; overflow:hidden;">
+      <div style="position:absolute; right:-160px; top:-120px; width:520px; height:520px; border-radius:50%; background:radial-gradient(circle at 30% 30%, rgba(94,177,50,.28), rgba(94,177,50,0) 62%);"></div>
+      <img src="assets/logo-full-white.png" alt="FitCrew" style="height:96px; width:auto; align-self:flex-start; object-fit:contain; flex-shrink:0; position:relative;">
+      <div style="position:relative;">
+        <div style="display:inline-flex; align-items:center; gap:8px; padding:7px 14px; border:1px solid #2c2e2a; border-radius:999px; color:#8fd06a; font-size:12px; font-weight:600; letter-spacing:.04em; text-transform:uppercase;">Console gérant</div>
+        <h1 style="color:#fff; font-size:42px; line-height:1.08; font-weight:800; margin:24px 0 16px; letter-spacing:-.02em;">Pilotez votre salle,<br>animez votre communauté.</h1>
+        <p style="color:#9a9f97; font-size:15.5px; line-height:1.6; max-width:420px; margin:0; font-weight:500;">Diffusez vos challenges et actualités, suivez l'engagement de vos membres et mesurez l'impact de vos partenariats — depuis un seul tableau de bord.</p>
+      </div>
+      <div style="position:relative; display:flex; gap:32px;">
+        <div><div style="color:#fff; font-size:24px; font-weight:800;">1 284</div><div style="color:#71766d; font-size:12px; font-weight:600; margin-top:2px;">membres actifs</div></div>
+        <div><div style="color:#fff; font-size:24px; font-weight:800;">68%</div><div style="color:#71766d; font-size:12px; font-weight:600; margin-top:2px;">d'engagement</div></div>
+        <div><div style="color:#fff; font-size:24px; font-weight:800;">12</div><div style="color:#71766d; font-size:12px; font-weight:600; margin-top:2px;">partenaires</div></div>
+      </div>
+    </div>
+    <div style="display:flex; align-items:center; justify-content:center; padding:48px;">
+      <div style="width:100%; max-width:380px;">
+        <h2 style="font-size:26px; font-weight:800; margin:0 0 6px; letter-spacing:-.01em;">Connexion</h2>
+        <p style="color:#6c7268; font-size:14px; font-weight:500; margin:0 0 32px;">Accédez à l'espace de gestion de <b style="color:#131613;">FitnessPark Rennes&nbsp;— Villejean</b>.</p>
+        <label style="display:block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#6c7268; margin-bottom:8px;">Adresse e-mail</label>
+        <input value="t.mercier@fitcrew.fr" style="width:100%; height:48px; border:1.5px solid #e1e5dc; border-radius:12px; padding:0 16px; font-size:15px; font-weight:500; background:#fafbf8; margin-bottom:18px;" style-focus="border-color:#5eb132; background:#fff;">
+        <label style="display:block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#6c7268; margin-bottom:8px;">Mot de passe</label>
+        <input type="password" value="fitcrew2026" style="width:100%; height:48px; border:1.5px solid #e1e5dc; border-radius:12px; padding:0 16px; font-size:15px; font-weight:500; background:#fafbf8; margin-bottom:14px;" style-focus="border-color:#5eb132; background:#fff;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:26px;">
+          <label style="display:flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:#6c7268; cursor:pointer;"><span style="width:18px; height:18px; border-radius:5px; background:#5eb132; display:inline-flex; align-items:center; justify-content:center; color:#fff; font-size:11px;">✓</span> Se souvenir de moi</label>
+          <a style="font-size:13px; font-weight:600; color:#4a8f27; text-decoration:none; cursor:pointer;">Mot de passe oublié&nbsp;?</a>
+        </div>
+        <button onClick="{{ login }}" style="width:100%; height:50px; border:none; border-radius:12px; background:#5eb132; color:#fff; font-size:15px; font-weight:700; cursor:pointer; box-shadow:0 6px 16px rgba(94,177,50,.32); display:flex; align-items:center; justify-content:center; gap:8px;" style-hover="background:#4f9c2a;">Se connecter →</button>
+        <p style="text-align:center; color:#9aa093; font-size:12.5px; font-weight:500; margin:28px 0 0;">Pas encore d'espace gérant&nbsp;? <a style="color:#4a8f27; font-weight:600; text-decoration:none; cursor:pointer;">Contactez FitCrew</a></p>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ APP ============ -->
+  <sc-if value="{{ isApp }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex; min-height:100vh; background:#f4f6f2;">
+
+    <!-- SIDEBAR -->
+    <aside style="width:248px; flex-shrink:0; background:#121212; display:flex; flex-direction:column; position:sticky; top:0; height:100vh;">
+      <div style="padding:24px 22px 18px; display:flex; align-items:center; gap:11px; border-bottom:1px solid #1f211d;">
+        <img src="assets/logo-mark-white.png" alt="FitCrew" style="height:32px; width:auto; flex-shrink:0; object-fit:contain;">
+        <div>
+          <div style="color:#fff; font-size:15px; font-weight:800; letter-spacing:-.01em; line-height:1;">FitCrew</div>
+          <div style="color:#6f746b; font-size:10.5px; font-weight:600; letter-spacing:.03em; margin-top:3px;">CONSOLE GÉRANT</div>
+        </div>
+      </div>
+
+      <div style="padding:14px 14px; display:flex; align-items:center; gap:10px; margin:8px 8px 4px; background:#1b1d19; border-radius:12px;">
+        <div style="width:34px; height:34px; border-radius:9px; background:#5eb132; display:flex; align-items:center; justify-content:center; color:#0e2406; font-weight:800; font-size:13px; flex-shrink:0;">VJ</div>
+        <div style="min-width:0; flex:1;">
+          <div style="color:#fff; font-size:12.5px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">FitnessPark Villejean</div>
+          <div style="color:#6f746b; font-size:10.5px; font-weight:600;">Changer de salle</div>
+        </div>
+        <span style="color:#6f746b; font-size:11px;">▾</span>
+      </div>
+
+      <nav style="flex:1; padding:14px 12px; display:flex; flex-direction:column; gap:3px;">
+        <div style="color:#5b5f57; font-size:10px; font-weight:700; letter-spacing:.08em; padding:8px 12px 6px;">PILOTAGE</div>
+        <a onClick="{{ nav.dashboard.go }}" style="display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:10px; cursor:pointer; text-decoration:none; position:relative; min-height:40px;">
+          <sc-if value="{{ nav.dashboard.active }}" hint-placeholder-val="{{ true }}">
+            <span style="position:absolute; inset:0; border-radius:10px; background:#1f211d;"></span>
+            <span style="position:relative; display:flex; align-items:center; gap:12px; width:100%; color:#ffffff; font-size:13.5px; font-weight:600;"><span style="width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center;" dangerouslySetInnerHTML="{{ icoGrid }}"></span><span style="flex:1;">Tableau de bord</span></span>
+          </sc-if>
+          <sc-if value="{{ nav.dashboard.off }}" hint-placeholder-val="{{ false }}">
+            <span style="position:relative; display:flex; align-items:center; gap:12px; width:100%; color:#9a9f97; font-size:13.5px; font-weight:600;"><span style="width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center;" dangerouslySetInnerHTML="{{ icoGrid }}"></span><span style="flex:1;">Tableau de bord</span></span>
+          </sc-if>
+        </a>
+        <a onClick="{{ nav.broadcast.go }}" style="display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:10px; cursor:pointer; text-decoration:none; position:relative; min-height:40px;">
+          <sc-if value="{{ nav.broadcast.active }}" hint-placeholder-val="{{ false }}">
+            <span style="position:absolute; inset:0; border-radius:10px; background:#1f211d;"></span>
+            <span style="position:relative; display:flex; align-items:center; gap:12px; width:100%; color:#ffffff; font-size:13.5px; font-weight:600;"><span style="width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center;" dangerouslySetInnerHTML="{{ icoMega }}"></span><span style="flex:1;">Diffuser</span><span style="background:#5eb132; color:#0e2406; font-size:10px; font-weight:800; padding:1px 7px; border-radius:999px;">2</span></span>
+          </sc-if>
+          <sc-if value="{{ nav.broadcast.off }}" hint-placeholder-val="{{ true }}">
+            <span style="position:relative; display:flex; align-items:center; gap:12px; width:100%; color:#9a9f97; font-size:13.5px; font-weight:600;"><span style="width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center;" dangerouslySetInnerHTML="{{ icoMega }}"></span><span style="flex:1;">Diffuser</span><span style="background:#5eb132; color:#0e2406; font-size:10px; font-weight:800; padding:1px 7px; border-radius:999px;">2</span></span>
+          </sc-if>
+        </a>
+        <a onClick="{{ nav.page.go }}" style="display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:10px; cursor:pointer; text-decoration:none; position:relative; min-height:40px;">
+          <sc-if value="{{ nav.page.active }}" hint-placeholder-val="{{ false }}">
+            <span style="position:absolute; inset:0; border-radius:10px; background:#1f211d;"></span>
+            <span style="position:relative; display:flex; align-items:center; gap:12px; width:100%; color:#ffffff; font-size:13.5px; font-weight:600;"><span style="width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center;" dangerouslySetInnerHTML="{{ icoHome }}"></span><span style="flex:1;">Page de la salle</span></span>
+          </sc-if>
+          <sc-if value="{{ nav.page.off }}" hint-placeholder-val="{{ true }}">
+            <span style="position:relative; display:flex; align-items:center; gap:12px; width:100%; color:#9a9f97; font-size:13.5px; font-weight:600;"><span style="width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center;" dangerouslySetInnerHTML="{{ icoHome }}"></span><span style="flex:1;">Page de la salle</span></span>
+          </sc-if>
+        </a>
+        <a onClick="{{ nav.partners.go }}" style="display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:10px; cursor:pointer; text-decoration:none; position:relative; min-height:40px;">
+          <sc-if value="{{ nav.partners.active }}" hint-placeholder-val="{{ false }}">
+            <span style="position:absolute; inset:0; border-radius:10px; background:#1f211d;"></span>
+            <span style="position:relative; display:flex; align-items:center; gap:12px; width:100%; color:#ffffff; font-size:13.5px; font-weight:600;"><span style="width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center;" dangerouslySetInnerHTML="{{ icoTag }}"></span><span style="flex:1;">Partenaires</span></span>
+          </sc-if>
+          <sc-if value="{{ nav.partners.off }}" hint-placeholder-val="{{ true }}">
+            <span style="position:relative; display:flex; align-items:center; gap:12px; width:100%; color:#9a9f97; font-size:13.5px; font-weight:600;"><span style="width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center;" dangerouslySetInnerHTML="{{ icoTag }}"></span><span style="flex:1;">Partenaires</span></span>
+          </sc-if>
+        </a>
+        <a onClick="{{ nav.team.go }}" style="display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:10px; cursor:pointer; text-decoration:none; position:relative; min-height:40px;">
+          <sc-if value="{{ nav.team.active }}" hint-placeholder-val="{{ false }}">
+            <span style="position:absolute; inset:0; border-radius:10px; background:#1f211d;"></span>
+            <span style="position:relative; display:flex; align-items:center; gap:12px; width:100%; color:#ffffff; font-size:13.5px; font-weight:600;"><span style="width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center;" dangerouslySetInnerHTML="{{ icoUsers }}"></span><span style="flex:1;">Équipe</span></span>
+          </sc-if>
+          <sc-if value="{{ nav.team.off }}" hint-placeholder-val="{{ true }}">
+            <span style="position:relative; display:flex; align-items:center; gap:12px; width:100%; color:#9a9f97; font-size:13.5px; font-weight:600;"><span style="width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center;" dangerouslySetInnerHTML="{{ icoUsers }}"></span><span style="flex:1;">Équipe</span></span>
+          </sc-if>
+        </a>
+      </nav>
+
+      <div style="padding:12px; border-top:1px solid #1f211d;">
+        <a onClick="{{ goProfile }}" style="display:flex; align-items:center; gap:11px; padding:9px 10px; border-radius:11px; cursor:pointer; text-decoration:none;" style-hover="background:#1b1d19;">
+          <div style="width:36px; height:36px; border-radius:50%; background:#2c4f17; color:#cdeab8; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; flex-shrink:0;">TM</div>
+          <div style="flex:1; min-width:0;">
+            <div style="color:#fff; font-size:12.5px; font-weight:700; line-height:1.1;">Thomas Mercier</div>
+            <div style="color:#6f746b; font-size:10.5px; font-weight:600;">Gérant</div>
+          </div>
+          <span onClick="{{ logout }}" title="Déconnexion" style="color:#6f746b; font-size:15px; padding:4px;" style-hover="color:#fff;">⏻</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="fc-scroll" style="flex:1; min-width:0; height:100vh; overflow-y:auto;">
+      <!-- TOP BAR -->
+      <header style="position:sticky; top:0; z-index:20; background:rgba(244,246,242,.86); backdrop-filter:blur(10px); border-bottom:1px solid #e7eae3; padding:16px 34px; display:flex; align-items:center; gap:20px;">
+        <div style="flex:1;">
+          <div style="font-size:11px; font-weight:700; letter-spacing:.05em; color:#9aa093; text-transform:uppercase;">{{ crumb }}</div>
+          <h1 style="font-size:21px; font-weight:800; margin:2px 0 0; letter-spacing:-.01em;">{{ pageTitle }}</h1>
+        </div>
+        <div style="display:flex; align-items:center; height:42px; background:#fff; border:1px solid #e7eae3; border-radius:11px; padding:0 14px; gap:10px; width:280px;">
+          <span style="color:#aab0a3; font-size:15px;">⌕</span>
+          <input placeholder="Rechercher un membre, un challenge…" style="border:none; background:none; flex:1; font-size:13px; font-weight:500; color:#131613;">
+        </div>
+        <button onClick="{{ goBroadcast }}" style="height:42px; padding:0 18px; border:none; border-radius:11px; background:#5eb132; color:#fff; font-size:13.5px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:8px; box-shadow:0 4px 12px rgba(94,177,50,.28);" style-hover="background:#4f9c2a;">＋ Diffuser</button>
+        <button style="width:42px; height:42px; border:1px solid #e7eae3; border-radius:11px; background:#fff; cursor:pointer; font-size:16px; position:relative;">🔔<span style="position:absolute; top:9px; right:10px; width:8px; height:8px; border-radius:50%; background:#5eb132; border:2px solid #fff;"></span></button>
+      </header>
+
+      <div style="padding:30px 34px 60px; overflow-x:hidden;">
+
+        <!-- ===== DASHBOARD ===== -->
+        <sc-if value="{{ isDashboard }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <!-- variant switch -->
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:22px; flex-wrap:wrap; gap:14px;">
+            <div style="display:flex; gap:8px; align-items:center;">
+              <div style="display:inline-flex; background:#fff; border:1px solid #e7eae3; border-radius:11px; padding:4px; gap:2px;">
+                <sc-if value="{{ isVarA }}" hint-placeholder-val="{{ true }}">
+                  <button onClick="{{ setVarA }}" style="height:34px; padding:0 16px; border:none; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer; background:#121212; color:#fff;">Vue d'ensemble</button>
+                  <button onClick="{{ setVarB }}" style="height:34px; padding:0 16px; border:none; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer; background:transparent; color:#6c7268;">Vue analytique</button>
+                </sc-if>
+                <sc-if value="{{ isVarB }}" hint-placeholder-val="{{ false }}">
+                  <button onClick="{{ setVarA }}" style="height:34px; padding:0 16px; border:none; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer; background:transparent; color:#6c7268;">Vue d'ensemble</button>
+                  <button onClick="{{ setVarB }}" style="height:34px; padding:0 16px; border:none; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer; background:#121212; color:#fff;">Vue analytique</button>
+                </sc-if>
+              </div>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <button style="height:38px; padding:0 14px; border:1px solid #e7eae3; border-radius:10px; background:#fff; font-size:13px; font-weight:600; color:#42463f; cursor:pointer; display:flex; align-items:center; gap:8px;">📅 7 derniers jours ▾</button>
+              <button style="height:38px; padding:0 14px; border:1px solid #e7eae3; border-radius:10px; background:#fff; font-size:13px; font-weight:600; color:#42463f; cursor:pointer;">Exporter</button>
+            </div>
+          </div>
+
+          <!-- VARIANT A -->
+          <sc-if value="{{ isVarA }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:18px;">
+              <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="4">
+                <div style="background:#fff; border:1px solid #eceee8; border-radius:16px; padding:18px 18px 16px;">
+                  <div style="display:flex; align-items:center; justify-content:space-between;">
+                    <div style="width:36px; height:36px; border-radius:10px; background:#eef5e9; display:flex; align-items:center; justify-content:center;" dangerouslySetInnerHTML="{{ k.icon }}"></div>
+                    <div style="font-size:12px; font-weight:700; color:{{ k.deltaColor }}; background:{{ k.deltaBg }}; padding:3px 8px; border-radius:7px;">{{ k.delta }}</div>
+                  </div>
+                  <div style="font-size:30px; font-weight:800; letter-spacing:-.02em; margin:14px 0 2px; font-variant-numeric:tabular-nums;">{{ k.value }}</div>
+                  <div style="font-size:12.5px; font-weight:600; color:#6c7268;">{{ k.label }}</div>
+                  <div style="font-size:11px; font-weight:500; color:#aab0a3; margin-top:3px;">{{ k.sub }}</div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1.6fr 1fr; gap:16px; margin-bottom:18px;">
+              <!-- line chart -->
+              <div style="background:#fff; border:1px solid #eceee8; border-radius:16px; padding:20px 22px;">
+                <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:6px;">
+                  <div>
+                    <h3 style="font-size:15px; font-weight:800; margin:0;">Engagement des challenges</h3>
+                    <p style="font-size:12px; font-weight:500; color:#9aa093; margin:3px 0 0;">Taux de participation hebdomadaire · 8 semaines</p>
+                  </div>
+                  <div style="text-align:right;"><div style="font-size:26px; font-weight:800; color:#5eb132; line-height:1;">68%</div><div style="font-size:11px; font-weight:600; color:#5eb132;">▲ +5,4 pts</div></div>
+                </div>
+                <svg viewBox="0 0 680 220" style="width:100%; height:auto; display:block; margin-top:8px;">
+                  <sc-for list="{{ grid }}" as="g" hint-placeholder-count="4">
+                    <line x1="0" y1="{{ g.y }}" x2="680" y2="{{ g.y }}" stroke="#f0f2ec" stroke-width="1"></line>
+                    <text x="0" y="{{ g.ty }}" font-size="11" font-weight="600" fill="#b4b9ae" font-family="Montserrat">{{ g.label }}</text>
+                  </sc-for>
+                  <polygon points="{{ areaPts }}" fill="url(#fcGrad)"></polygon>
+                  <polyline points="{{ linePts }}" fill="none" stroke="#5eb132" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"></polyline>
+                  <sc-for list="{{ dots }}" as="d" hint-placeholder-count="8">
+                    <circle cx="{{ d.x }}" cy="{{ d.y }}" r="4" fill="#fff" stroke="#5eb132" stroke-width="2.5"></circle>
+                    <text x="{{ d.x }}" y="212" font-size="10.5" font-weight="600" fill="#aab0a3" text-anchor="middle" font-family="Montserrat">{{ d.label }}</text>
+                  </sc-for>
+                  <defs><linearGradient id="fcGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5eb132" stop-opacity="0.16"></stop><stop offset="1" stop-color="#5eb132" stop-opacity="0"></stop></linearGradient></defs>
+                </svg>
+              </div>
+              <!-- donut -->
+              <div style="background:#fff; border:1px solid #eceee8; border-radius:16px; padding:20px 22px;">
+                <h3 style="font-size:15px; font-weight:800; margin:0 0 2px;">Participation par type</h3>
+                <p style="font-size:12px; font-weight:500; color:#9aa093; margin:0 0 10px;">Répartition des inscriptions</p>
+                <div style="display:flex; align-items:center; gap:18px;">
+                  <svg viewBox="0 0 140 140" style="width:130px; height:130px; flex-shrink:0; transform:rotate(-90deg);">
+                    <circle cx="70" cy="70" r="54" fill="none" stroke="#f0f2ec" stroke-width="18"></circle>
+                    <sc-for list="{{ donut }}" as="s" hint-placeholder-count="3">
+                      <circle cx="70" cy="70" r="54" fill="none" stroke="{{ s.color }}" stroke-width="18" stroke-dasharray="{{ s.dash }}" stroke-dashoffset="{{ s.offset }}"></circle>
+                    </sc-for>
+                  </svg>
+                  <div style="flex:1; display:flex; flex-direction:column; gap:12px;">
+                    <sc-for list="{{ donut }}" as="s" hint-placeholder-count="3">
+                      <div style="display:flex; align-items:center; gap:9px;">
+                        <span style="width:11px; height:11px; border-radius:3px; background:{{ s.color }};"></span>
+                        <span style="flex:1; font-size:13px; font-weight:600; color:#42463f;">{{ s.label }}</span>
+                        <span style="font-size:14px; font-weight:800;">{{ s.pct }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1.6fr 1fr; gap:16px;">
+              <!-- challenges list -->
+              <div style="background:#fff; border:1px solid #eceee8; border-radius:16px; padding:20px 22px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+                  <h3 style="font-size:15px; font-weight:800; margin:0;">Challenges actifs</h3>
+                  <a style="font-size:12.5px; font-weight:700; color:#4a8f27; cursor:pointer; text-decoration:none;">Tout voir →</a>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                  <sc-for list="{{ challenges }}" as="c" hint-placeholder-count="4">
+                    <div style="display:flex; align-items:center; gap:14px; padding:11px 10px; border-radius:11px;" style-hover="background:#f7f9f4;">
+                      <div style="width:40px; height:40px; border-radius:11px; background:{{ c.tint }}; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0;">{{ c.emoji }}</div>
+                      <div style="flex:1; min-width:0;">
+                        <div style="display:flex; align-items:center; gap:8px;"><span style="font-size:13.5px; font-weight:700;">{{ c.name }}</span><span style="font-size:10.5px; font-weight:700; color:{{ c.tagColor }}; background:{{ c.tagBg }}; padding:1px 7px; border-radius:6px;">{{ c.type }}</span></div>
+                        <div style="height:6px; background:#f0f2ec; border-radius:99px; margin-top:8px; overflow:hidden;"><div style="height:100%; width:{{ c.barPct }}%; background:#5eb132; border-radius:99px;"></div></div>
+                      </div>
+                      <div style="text-align:right; flex-shrink:0; width:88px;"><div style="font-size:15px; font-weight:800; font-variant-numeric:tabular-nums;">{{ c.participants }}</div><div style="font-size:10.5px; font-weight:600; color:#9aa093;">{{ c.engagement }} engagés</div></div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+              <!-- news + partner -->
+              <div style="display:flex; flex-direction:column; gap:16px;">
+                <div style="background:#fff; border:1px solid #eceee8; border-radius:16px; padding:20px 22px;">
+                  <h3 style="font-size:15px; font-weight:800; margin:0 0 12px;">Actualités récentes</h3>
+                  <div style="display:flex; flex-direction:column; gap:13px;">
+                    <sc-for list="{{ news }}" as="n" hint-placeholder-count="3">
+                      <div style="display:flex; gap:11px; align-items:flex-start;">
+                        <span style="width:9px; height:9px; border-radius:50%; background:{{ n.dot }}; margin-top:5px; flex-shrink:0;"></span>
+                        <div style="flex:1; min-width:0;">
+                          <div style="font-size:13px; font-weight:700; line-height:1.3;">{{ n.title }}</div>
+                          <div style="font-size:11px; font-weight:500; color:#9aa093; margin-top:3px;">{{ n.meta }}</div>
+                        </div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+                <div style="background:linear-gradient(135deg,#1a1c18,#121212); border-radius:16px; padding:20px 22px; color:#fff;">
+                  <div style="font-size:12px; font-weight:600; color:#8fd06a; text-transform:uppercase; letter-spacing:.04em;">Top offre partenaire</div>
+                  <div style="font-size:17px; font-weight:800; margin:8px 0 2px;">Prozis · −20% protéines</div>
+                  <div style="display:flex; gap:24px; margin-top:14px;">
+                    <div><div style="font-size:22px; font-weight:800;">412</div><div style="font-size:11px; color:#9a9f97; font-weight:600;">clics offre</div></div>
+                    <div><div style="font-size:22px; font-weight:800;">98</div><div style="font-size:11px; color:#9a9f97; font-weight:600;">conversions</div></div>
+                    <div><div style="font-size:22px; font-weight:800; color:#8fd06a;">23%</div><div style="font-size:11px; color:#9a9f97; font-weight:600;">taux</div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+
+          <!-- VARIANT B -->
+          <sc-if value="{{ isVarB }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div style="display:grid; grid-template-columns:1.15fr 1fr 1fr; gap:16px; margin-bottom:18px;">
+              <div style="grid-row:span 1; background:linear-gradient(140deg,#5eb132,#46901f); border-radius:18px; padding:22px 24px; color:#fff; position:relative; overflow:hidden;">
+                <div style="font-size:12.5px; font-weight:600; opacity:.9;">Engagement global · 7 jours</div>
+                <div style="font-size:52px; font-weight:800; letter-spacing:-.02em; line-height:1; margin:10px 0 4px; font-variant-numeric:tabular-nums;">68%</div>
+                <div style="font-size:13px; font-weight:600;">▲ +5,4 pts vs semaine précédente</div>
+                <svg viewBox="0 0 300 60" style="width:100%; height:54px; margin-top:14px;" preserveAspectRatio="none"><polyline points="{{ sparkPts }}" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"></polyline></svg>
+              </div>
+              <sc-for list="{{ kpisMini }}" as="k" hint-placeholder-count="2">
+                <div style="background:#fff; border:1px solid #eceee8; border-radius:18px; padding:20px 22px; display:flex; flex-direction:column; justify-content:space-between;">
+                  <div style="display:flex; align-items:center; justify-content:space-between;"><div style="font-size:13px; font-weight:700; color:#42463f;">{{ k.label }}</div><div style="font-size:11.5px; font-weight:700; color:{{ k.deltaColor }}; background:{{ k.deltaBg }}; padding:3px 8px; border-radius:7px;">{{ k.delta }}</div></div>
+                  <div><div style="font-size:34px; font-weight:800; letter-spacing:-.02em; font-variant-numeric:tabular-nums;">{{ k.value }}</div><div style="font-size:12px; font-weight:500; color:#9aa093;">{{ k.sub }}</div></div>
+                  <svg viewBox="0 0 200 36" style="width:100%; height:34px;" preserveAspectRatio="none"><polyline points="{{ k.spark }}" fill="none" stroke="#5eb132" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline></svg>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1.5fr 1fr; gap:16px; margin-bottom:18px;">
+              <!-- performance table -->
+              <div style="background:#fff; border:1px solid #eceee8; border-radius:16px; padding:20px 22px;">
+                <h3 style="font-size:15px; font-weight:800; margin:0 0 4px;">Performance par challenge</h3>
+                <p style="font-size:12px; font-weight:500; color:#9aa093; margin:0 0 14px;">Participants, complétion et tendance</p>
+                <div style="display:grid; grid-template-columns:1.5fr 1fr 1fr 70px; gap:10px; padding:0 4px 10px; border-bottom:1px solid #f0f2ec; font-size:10.5px; font-weight:700; color:#aab0a3; text-transform:uppercase; letter-spacing:.04em;">
+                  <div>Challenge</div><div>Participants</div><div>Complétion</div><div style="text-align:right;">Tendance</div>
+                </div>
+                <sc-for list="{{ challenges }}" as="c" hint-placeholder-count="4">
+                  <div style="display:grid; grid-template-columns:1.5fr 1fr 1fr 70px; gap:10px; align-items:center; padding:12px 4px; border-bottom:1px solid #f5f6f1;">
+                    <div style="display:flex; align-items:center; gap:9px;"><span style="font-size:16px;">{{ c.emoji }}</span><span style="font-size:13px; font-weight:700; line-height:1.2;">{{ c.name }}</span></div>
+                    <div style="font-size:14px; font-weight:800; font-variant-numeric:tabular-nums;">{{ c.participants }}</div>
+                    <div style="display:flex; align-items:center; gap:8px;"><div style="flex:1; height:6px; background:#f0f2ec; border-radius:99px; overflow:hidden;"><div style="height:100%; width:{{ c.completion }}%; background:{{ c.compColor }}; border-radius:99px;"></div></div><span style="font-size:11.5px; font-weight:700; color:#42463f;">{{ c.completion }}%</span></div>
+                    <svg viewBox="0 0 70 26" style="width:70px; height:24px;" preserveAspectRatio="none"><polyline points="{{ c.spark }}" fill="none" stroke="{{ c.trendColor }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline></svg>
+                  </div>
+                </sc-for>
+              </div>
+              <!-- funnel -->
+              <div style="background:#fff; border:1px solid #eceee8; border-radius:16px; padding:20px 22px;">
+                <h3 style="font-size:15px; font-weight:800; margin:0 0 2px;">Entonnoir offres partenaires</h3>
+                <p style="font-size:12px; font-weight:500; color:#9aa093; margin:0 0 16px;">Des actualités aux conversions · 7 j</p>
+                <div style="display:flex; flex-direction:column; gap:12px;">
+                  <sc-for list="{{ funnel }}" as="f" hint-placeholder-count="3">
+                    <div>
+                      <div style="display:flex; justify-content:space-between; margin-bottom:6px;"><span style="font-size:12.5px; font-weight:700; color:#42463f;">{{ f.label }}</span><span style="font-size:13px; font-weight:800; font-variant-numeric:tabular-nums;">{{ f.value }}</span></div>
+                      <div style="height:30px; background:#f4f6f1; border-radius:9px; overflow:hidden;"><div style="height:100%; width:{{ f.pct }}%; background:{{ f.color }}; border-radius:9px; display:flex; align-items:center; padding-left:10px; color:#fff; font-size:11px; font-weight:700;">{{ f.rate }}</div></div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1.5fr; gap:16px;">
+              <!-- leaderboard -->
+              <div style="background:#fff; border:1px solid #eceee8; border-radius:16px; padding:20px 22px;">
+                <h3 style="font-size:15px; font-weight:800; margin:0 0 12px;">Membres les plus engagés</h3>
+                <div style="display:flex; flex-direction:column; gap:4px;">
+                  <sc-for list="{{ leaderboard }}" as="m" hint-placeholder-count="5">
+                    <div style="display:flex; align-items:center; gap:12px; padding:9px 8px; border-radius:10px;" style-hover="background:#f7f9f4;">
+                      <div style="width:22px; font-size:13px; font-weight:800; color:{{ m.rankColor }}; text-align:center;">{{ m.rank }}</div>
+                      <div style="width:34px; height:34px; border-radius:50%; background:{{ m.color }}; color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800;">{{ m.initials }}</div>
+                      <div style="flex:1;"><div style="font-size:13px; font-weight:700;">{{ m.name }}</div><div style="font-size:11px; font-weight:600; color:#9aa093;">🔥 {{ m.streak }} · {{ m.sessions }} séances</div></div>
+                      <div style="font-size:14px; font-weight:800; color:#5eb132; font-variant-numeric:tabular-nums;">{{ m.pts }}</div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+              <!-- weekly activity -->
+              <div style="background:#fff; border:1px solid #eceee8; border-radius:16px; padding:20px 22px;">
+                <div style="display:flex; align-items:flex-start; justify-content:space-between;"><div><h3 style="font-size:15px; font-weight:800; margin:0 0 2px;">Fréquentation hebdomadaire</h3><p style="font-size:12px; font-weight:500; color:#9aa093; margin:0;">Check-ins en salle par jour</p></div><div style="text-align:right;"><div style="font-size:22px; font-weight:800;">1 990</div><div style="font-size:11px; font-weight:600; color:#9aa093;">cette semaine</div></div></div>
+                <div style="display:flex; align-items:flex-end; gap:14px; height:170px; margin-top:18px; padding-bottom:22px; position:relative;">
+                  <sc-for list="{{ weekBars }}" as="b" hint-placeholder-count="7">
+                    <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:8px; height:100%; justify-content:flex-end;">
+                      <span style="font-size:11px; font-weight:700; color:#42463f;">{{ b.value }}</span>
+                      <div style="width:100%; max-width:34px; height:{{ b.h }}px; background:{{ b.color }}; border-radius:8px 8px 4px 4px;"></div>
+                      <span style="font-size:11px; font-weight:600; color:#9aa093; position:absolute; bottom:0;">{{ b.day }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+        </div>
+        </sc-if>
+
+        <!-- ===== DIFFUSER ===== -->
+        <sc-if value="{{ isBroadcast }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid; grid-template-columns:1.5fr 1fr; gap:24px; align-items:start;">
+          <div style="background:#fff; border:1px solid #eceee8; border-radius:18px; padding:26px 28px;">
+            <h3 style="font-size:16px; font-weight:800; margin:0 0 4px;">Type de publication</h3>
+            <p style="font-size:12.5px; font-weight:500; color:#9aa093; margin:0 0 16px;">Choisissez ce que vous souhaitez diffuser auprès de vos membres.</p>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:26px;">
+              <button onClick="{{ setChallenge }}" style="text-align:left; padding:16px; border:1.5px solid {{ chBorder }}; border-radius:14px; background:{{ chBg }}; cursor:pointer;">
+                <div style="font-size:22px;">🏆</div>
+                <div style="font-size:14px; font-weight:800; margin-top:8px; color:#131613;">Challenge</div>
+                <div style="font-size:11.5px; font-weight:500; color:#6c7268; margin-top:2px;">Objectif, dates et récompense</div>
+              </button>
+              <button onClick="{{ setActu }}" style="text-align:left; padding:16px; border:1.5px solid {{ acBorder }}; border-radius:14px; background:{{ acBg }}; cursor:pointer;">
+                <div style="font-size:22px;">📣</div>
+                <div style="font-size:14px; font-weight:800; margin-top:8px; color:#131613;">Actualité</div>
+                <div style="font-size:11.5px; font-weight:500; color:#6c7268; margin-top:2px;">Partenariat ou info interne</div>
+              </button>
+            </div>
+
+            <label style="display:block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#6c7268; margin-bottom:8px;">Titre</label>
+            <input value="{{ formTitle }}" placeholder="{{ titlePh }}" style="width:100%; height:46px; border:1.5px solid #e1e5dc; border-radius:11px; padding:0 14px; font-size:14.5px; font-weight:600; background:#fafbf8; margin-bottom:18px;" style-focus="border-color:#5eb132; background:#fff;">
+
+            <label style="display:block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#6c7268; margin-bottom:8px;">Description</label>
+            <textarea placeholder="{{ bodyPh }}" style="width:100%; height:96px; border:1.5px solid #e1e5dc; border-radius:11px; padding:12px 14px; font-size:14px; font-weight:500; background:#fafbf8; resize:vertical; line-height:1.5;" style-focus="border-color:#5eb132; background:#fff;">{{ formBody }}</textarea>
+
+            <!-- challenge fields -->
+            <sc-if value="{{ isChallenge }}" hint-placeholder-val="{{ true }}">
+            <div style="margin-top:18px;">
+              <label style="display:block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#6c7268; margin-bottom:8px;">Catégorie d'objectif</label>
+              <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px;">
+                <sc-for list="{{ objTypes }}" as="o" hint-placeholder-count="3">
+                  <span style="padding:8px 14px; border-radius:10px; border:1.5px solid {{ o.border }}; background:{{ o.bg }}; color:{{ o.color }}; font-size:13px; font-weight:700; cursor:pointer;">{{ o.label }}</span>
+                </sc-for>
+              </div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:18px;">
+                <div><label style="display:block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#6c7268; margin-bottom:8px;">Début</label><input value="29 juin 2026" style="width:100%; height:46px; border:1.5px solid #e1e5dc; border-radius:11px; padding:0 14px; font-size:14px; font-weight:600; background:#fafbf8;"></div>
+                <div><label style="display:block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#6c7268; margin-bottom:8px;">Fin</label><input value="5 juil. 2026" style="width:100%; height:46px; border:1.5px solid #e1e5dc; border-radius:11px; padding:0 14px; font-size:14px; font-weight:600; background:#fafbf8;"></div>
+              </div>
+              <label style="display:block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#6c7268; margin-bottom:8px;">Récompense</label>
+              <input value="Badge « Régulier » + 1 séance coaching offerte" style="width:100%; height:46px; border:1.5px solid #e1e5dc; border-radius:11px; padding:0 14px; font-size:14px; font-weight:600; background:#fafbf8;">
+            </div>
+            </sc-if>
+
+            <!-- actu fields -->
+            <sc-if value="{{ isActu }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:18px;">
+              <label style="display:block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#6c7268; margin-bottom:8px;">Catégorie</label>
+              <div style="display:flex; gap:8px; margin-bottom:18px;">
+                <span style="padding:8px 14px; border-radius:10px; border:1.5px solid #5eb132; background:#eef5e9; color:#3d7d22; font-size:13px; font-weight:700; cursor:pointer;">Partenariat commercial</span>
+                <span style="padding:8px 14px; border-radius:10px; border:1.5px solid #e1e5dc; background:#fafbf8; color:#6c7268; font-size:13px; font-weight:700; cursor:pointer;">Info interne</span>
+              </div>
+              <label style="display:block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#6c7268; margin-bottom:8px;">Lien de l'offre partenaire</label>
+              <input value="https://prozis.com/fitnesspark-rennes" style="width:100%; height:46px; border:1.5px solid #e1e5dc; border-radius:11px; padding:0 14px; font-size:14px; font-weight:600; background:#fafbf8; margin-bottom:18px;">
+              <label style="display:block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#6c7268; margin-bottom:8px;">Visuel</label>
+              <div style="border:1.5px dashed #cfd6c8; border-radius:12px; background:#fafbf8; padding:22px; text-align:center; background-image:repeating-linear-gradient(45deg,#f4f6f1,#f4f6f1 8px,#eef1ea 8px,#eef1ea 16px);">
+                <div style="font-size:13px; font-weight:700; color:#6c7268;">＋ Glissez une image</div>
+                <div style="font-size:11px; font-family:ui-monospace,monospace; color:#9aa093; margin-top:4px;">[ visuel offre · 1200×675 ]</div>
+              </div>
+            </div>
+            </sc-if>
+
+            <label style="display:block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#6c7268; margin:22px 0 8px;">Audience</label>
+            <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px;">
+              <span style="padding:8px 14px; border-radius:10px; border:1.5px solid #5eb132; background:#eef5e9; color:#3d7d22; font-size:13px; font-weight:700;">Tous les membres · 1 284</span>
+              <span style="padding:8px 14px; border-radius:10px; border:1.5px solid #e1e5dc; background:#fafbf8; color:#6c7268; font-size:13px; font-weight:700;">Pôle Crossfit</span>
+              <span style="padding:8px 14px; border-radius:10px; border:1.5px solid #e1e5dc; background:#fafbf8; color:#6c7268; font-size:13px; font-weight:700;">Nouveaux (30 j)</span>
+            </div>
+            <div style="display:flex; gap:12px;">
+              <button onClick="{{ publish }}" style="flex:1; height:50px; border:none; border-radius:12px; background:#5eb132; color:#fff; font-size:15px; font-weight:700; cursor:pointer; box-shadow:0 6px 16px rgba(94,177,50,.3);" style-hover="background:#4f9c2a;">Publier maintenant</button>
+              <button style="height:50px; padding:0 22px; border:1.5px solid #e1e5dc; border-radius:12px; background:#fff; color:#42463f; font-size:14px; font-weight:700; cursor:pointer;">Programmer</button>
+            </div>
+          </div>
+
+          <!-- live preview -->
+          <div style="position:sticky; top:96px;">
+            <div style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#9aa093; margin-bottom:12px; text-align:center;">Aperçu dans l'app membre</div>
+            <div style="width:300px; margin:0 auto; background:#121212; border-radius:42px; padding:11px; box-shadow:0 24px 60px rgba(0,0,0,.22);">
+              <div style="background:#f4f6f2; border-radius:32px; overflow:hidden; height:560px; position:relative;">
+                <div style="height:46px; display:flex; align-items:center; justify-content:space-between; padding:0 22px; font-size:12px; font-weight:700; color:#131613;"><span>9:41</span><span>FitCrew</span></div>
+                <div style="padding:0 14px;">
+                  <div style="background:#fff; border-radius:18px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,.05);">
+                    <div style="height:130px; background:{{ prevHeroBg }}; display:flex; align-items:center; justify-content:center; position:relative;">
+                      <span style="font-size:42px;">{{ prevEmoji }}</span>
+                      <span style="position:absolute; top:12px; left:12px; background:rgba(255,255,255,.9); color:#3d7d22; font-size:10px; font-weight:800; padding:4px 9px; border-radius:7px; text-transform:uppercase; letter-spacing:.03em;">{{ prevTag }}</span>
+                    </div>
+                    <div style="padding:14px 16px 16px;">
+                      <div style="font-size:15px; font-weight:800; line-height:1.25; color:#131613;">{{ prevTitle }}</div>
+                      <div style="font-size:12px; font-weight:500; color:#6c7268; line-height:1.5; margin-top:6px;">{{ prevBody }}</div>
+                      <div style="height:1px; background:#f0f2ec; margin:14px 0;"></div>
+                      <div style="display:flex; align-items:center; justify-content:space-between;">
+                        <div style="display:flex; align-items:center; gap:7px;"><span style="width:24px; height:24px; border-radius:50%; background:#2c4f17; color:#cdeab8; font-size:9px; font-weight:800; display:flex; align-items:center; justify-content:center;">VJ</span><span style="font-size:11px; font-weight:700; color:#42463f;">FitnessPark Villejean</span></div>
+                        <span style="background:#5eb132; color:#fff; font-size:11px; font-weight:800; padding:7px 14px; border-radius:9px;">{{ prevCta }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ===== PAGE DE LA SALLE ===== -->
+        <sc-if value="{{ isPage }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid; grid-template-columns:1fr 360px; gap:24px; align-items:start;">
+          <!-- editor -->
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div style="background:#fff; border:1px solid #eceee8; border-radius:16px; padding:22px 24px;">
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:4px;"><h3 style="font-size:15px; font-weight:800; margin:0;">Bannière &amp; identité</h3><span style="font-size:11px; font-weight:700; color:#3d7d22; background:#eef5e9; padding:3px 9px; border-radius:7px;">En ligne</span></div>
+              <p style="font-size:12.5px; font-weight:500; color:#9aa093; margin:0 0 16px;">Visible en haut de la page « Home » des membres.</p>
+              <div style="height:120px; border-radius:12px; background-image:repeating-linear-gradient(45deg,#eef1ea,#eef1ea 10px,#e6eae0 10px,#e6eae0 20px); display:flex; align-items:center; justify-content:center; border:1px solid #e7eae3;">
+                <div style="text-align:center;"><div style="font-size:13px; font-weight:700; color:#6c7268;">Photo de couverture</div><div style="font-size:11px; font-family:ui-monospace,monospace; color:#9aa093; margin-top:3px;">[ couverture salle · 1600×600 ]</div></div>
+              </div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px;">
+                <div><label style="display:block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#6c7268; margin-bottom:7px;">Nom de la salle</label><input value="FitnessPark Rennes — Villejean" style="width:100%; height:42px; border:1.5px solid #e1e5dc; border-radius:10px; padding:0 12px; font-size:13.5px; font-weight:600; background:#fafbf8;"></div>
+                <div><label style="display:block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#6c7268; margin-bottom:7px;">Horaires aujourd'hui</label><input value="6h00 – 23h00" style="width:100%; height:42px; border:1.5px solid #e1e5dc; border-radius:10px; padding:0 12px; font-size:13.5px; font-weight:600; background:#fafbf8;"></div>
+              </div>
+            </div>
+
+            <div style="background:#fff; border:1px solid #eceee8; border-radius:16px; padding:22px 24px;">
+              <h3 style="font-size:15px; font-weight:800; margin:0 0 4px;">Sections de la page</h3>
+              <p style="font-size:12.5px; font-weight:500; color:#9aa093; margin:0 0 16px;">Glissez pour réorganiser ce que voient vos membres.</p>
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <sc-for list="{{ sections }}" as="s" hint-placeholder-count="4">
+                  <div style="display:flex; align-items:center; gap:12px; padding:13px 14px; border:1px solid #eceee8; border-radius:11px; background:#fafbf8;">
+                    <span style="color:#c2c8ba; font-size:15px; cursor:grab;">⠿</span>
+                    <span style="font-size:18px;">{{ s.emoji }}</span>
+                    <div style="flex:1;"><div style="font-size:13.5px; font-weight:700;">{{ s.name }}</div><div style="font-size:11px; font-weight:500; color:#9aa093;">{{ s.desc }}</div></div>
+                    <span style="width:38px; height:22px; border-radius:99px; background:{{ s.tgBg }}; position:relative; flex-shrink:0;"><span style="position:absolute; top:2px; {{ s.tgPos }}:2px; width:18px; height:18px; border-radius:50%; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.2);"></span></span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+
+          <!-- phone preview -->
+          <div style="position:sticky; top:96px;">
+            <div style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#9aa093; margin-bottom:12px; text-align:center;">Page « Home » membre</div>
+            <div style="width:300px; margin:0 auto; background:#121212; border-radius:42px; padding:11px; box-shadow:0 24px 60px rgba(0,0,0,.22);">
+              <div class="fc-scroll" style="background:#f4f6f2; border-radius:32px; overflow-y:auto; height:580px;">
+                <div style="height:128px; background:linear-gradient(135deg,#1a1c18,#0e1f06); display:flex; align-items:flex-end; padding:14px 16px; position:relative;">
+                  <div style="position:absolute; inset:0; background:radial-gradient(circle at 80% 10%, rgba(94,177,50,.4), transparent 55%);"></div>
+                  <img src="assets/logo-mark-white.png" alt="" style="position:absolute; top:14px; right:14px; height:22px; opacity:.95;">
+                  <div style="position:relative; color:#fff;"><div style="font-size:16px; font-weight:800;">FitnessPark Villejean</div><div style="font-size:11px; color:#9fd87f; font-weight:600;">● Ouvert · 6h–23h</div></div>
+                </div>
+                <div style="padding:12px;">
+                  <div style="display:flex; gap:8px; margin-bottom:12px;">
+                    <div style="flex:1; background:#fff; border-radius:13px; padding:11px; text-align:center;"><div style="font-size:17px; font-weight:800; color:#5eb132;">7</div><div style="font-size:9.5px; font-weight:600; color:#6c7268;">jours de streak</div></div>
+                    <div style="flex:1; background:#fff; border-radius:13px; padding:11px; text-align:center;"><div style="font-size:17px; font-weight:800;">3/4</div><div style="font-size:9.5px; font-weight:600; color:#6c7268;">séances/sem.</div></div>
+                    <div style="flex:1; background:#fff; border-radius:13px; padding:11px; text-align:center;"><div style="font-size:17px; font-weight:800;">2 940</div><div style="font-size:9.5px; font-weight:600; color:#6c7268;">points</div></div>
+                  </div>
+                  <div style="font-size:11px; font-weight:800; color:#42463f; text-transform:uppercase; letter-spacing:.04em; margin:4px 2px 8px;">Challenge en cours</div>
+                  <div style="background:#fff; border-radius:14px; overflow:hidden; margin-bottom:12px;">
+                    <div style="height:74px; background:linear-gradient(135deg,#fde9d6,#fbe0c4); display:flex; align-items:center; justify-content:center; position:relative;"><span style="font-size:30px;">🔥</span><span style="position:absolute; top:8px; left:8px; background:rgba(255,255,255,.9); color:#b4651a; font-size:9px; font-weight:800; padding:3px 7px; border-radius:6px;">ASSIDUITÉ</span></div>
+                    <div style="padding:11px 13px;"><div style="font-size:13px; font-weight:800;">4 séances cette semaine</div><div style="height:5px; background:#f0f2ec; border-radius:99px; margin-top:9px; overflow:hidden;"><div style="height:100%; width:75%; background:#5eb132; border-radius:99px;"></div></div><div style="font-size:10px; font-weight:600; color:#9aa093; margin-top:6px;">3/4 · plus que 1 séance 💪</div></div>
+                  </div>
+                  <div style="font-size:11px; font-weight:800; color:#42463f; text-transform:uppercase; letter-spacing:.04em; margin:4px 2px 8px;">Actualités</div>
+                  <div style="background:#121212; border-radius:14px; padding:13px; color:#fff; margin-bottom:10px;"><div style="font-size:10px; font-weight:800; color:#8fd06a; text-transform:uppercase;">Partenariat</div><div style="font-size:13px; font-weight:800; margin:5px 0 8px;">Prozis · −20% protéines</div><span style="background:#5eb132; color:#fff; font-size:11px; font-weight:800; padding:6px 12px; border-radius:8px;">Voir l'offre</span></div>
+                  <div style="background:#fff; border-radius:14px; padding:13px;"><div style="font-size:10px; font-weight:800; color:#2c6394; text-transform:uppercase;">Interne</div><div style="font-size:13px; font-weight:800; margin-top:5px;">Nouvelles machines au pôle Crossfit</div><div style="font-size:11px; font-weight:500; color:#6c7268; margin-top:4px; line-height:1.4;">Découvrez les 4 nouveaux racks installés cette semaine.</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ===== PARTENAIRES ===== -->
+        <sc-if value="{{ isPartners }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:18px;">
+            <div style="background:#fff; border:1px solid #eceee8; border-radius:16px; padding:18px 20px;"><div style="font-size:12.5px; font-weight:600; color:#6c7268;">Clics offres (7 j)</div><div style="font-size:30px; font-weight:800; margin-top:6px;">892</div><div style="font-size:12px; font-weight:700; color:#2f8f1e;">▲ +23% vs semaine préc.</div></div>
+            <div style="background:#fff; border:1px solid #eceee8; border-radius:16px; padding:18px 20px;"><div style="font-size:12.5px; font-weight:600; color:#6c7268;">Conversions</div><div style="font-size:30px; font-weight:800; margin-top:6px;">213</div><div style="font-size:12px; font-weight:700; color:#2f8f1e;">▲ taux moyen 24%</div></div>
+            <div style="background:#fff; border:1px solid #eceee8; border-radius:16px; padding:18px 20px;"><div style="font-size:12.5px; font-weight:600; color:#6c7268;">Partenaires actifs</div><div style="font-size:30px; font-weight:800; margin-top:6px;">12</div><div style="font-size:12px; font-weight:700; color:#9aa093;">3 offres en cours</div></div>
+          </div>
+          <div style="background:#fff; border:1px solid #eceee8; border-radius:16px; padding:22px 24px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;"><h3 style="font-size:15px; font-weight:800; margin:0;">Marques partenaires</h3><button onClick="{{ goBroadcast }}" style="height:38px; padding:0 16px; border:none; border-radius:10px; background:#5eb132; color:#fff; font-size:13px; font-weight:700; cursor:pointer;">＋ Nouveau partenariat</button></div>
+            <div style="display:grid; grid-template-columns:1.6fr 1.4fr 1fr 1fr 1fr; gap:12px; padding:0 6px 12px; border-bottom:1px solid #f0f2ec; font-size:10.5px; font-weight:700; color:#aab0a3; text-transform:uppercase; letter-spacing:.04em;"><div>Marque</div><div>Offre en cours</div><div>Clics</div><div>Conversions</div><div style="text-align:right;">Statut</div></div>
+            <sc-for list="{{ partners }}" as="p" hint-placeholder-count="4">
+              <div style="display:grid; grid-template-columns:1.6fr 1.4fr 1fr 1fr 1fr; gap:12px; align-items:center; padding:14px 6px; border-bottom:1px solid #f5f6f1;">
+                <div style="display:flex; align-items:center; gap:11px;"><div style="width:38px; height:38px; border-radius:10px; background:{{ p.bg }}; color:{{ p.fg }}; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px;">{{ p.abbr }}</div><div><div style="font-size:13.5px; font-weight:700;">{{ p.name }}</div><div style="font-size:11px; font-weight:500; color:#9aa093;">{{ p.cat }}</div></div></div>
+                <div style="font-size:12.5px; font-weight:600; color:#42463f;">{{ p.offer }}</div>
+                <div style="font-size:14px; font-weight:800; font-variant-numeric:tabular-nums;">{{ p.clicks }}</div>
+                <div style="font-size:14px; font-weight:800; font-variant-numeric:tabular-nums; color:#3d7d22;">{{ p.conv }}</div>
+                <div style="text-align:right;"><span style="font-size:11px; font-weight:700; color:{{ p.stColor }}; background:{{ p.stBg }}; padding:4px 10px; border-radius:8px;">{{ p.status }}</span></div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ===== ÉQUIPE ===== -->
+        <sc-if value="{{ isTeam }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;">
+            <p style="font-size:13.5px; font-weight:500; color:#6c7268; margin:0;">6 membres dans l'équipe de <b style="color:#131613;">FitnessPark Villejean</b></p>
+            <button style="height:40px; padding:0 18px; border:none; border-radius:11px; background:#5eb132; color:#fff; font-size:13.5px; font-weight:700; cursor:pointer;">＋ Inviter un membre</button>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px;">
+            <sc-for list="{{ team }}" as="t" hint-placeholder-count="6">
+              <div style="background:#fff; border:1px solid #eceee8; border-radius:16px; padding:22px; position:relative;">
+                <span style="position:absolute; top:16px; right:16px; font-size:11px; font-weight:700; color:{{ t.roleColor }}; background:{{ t.roleBg }}; padding:4px 10px; border-radius:8px;">{{ t.tag }}</span>
+                <div style="width:58px; height:58px; border-radius:50%; background:{{ t.color }}; color:#fff; display:flex; align-items:center; justify-content:center; font-size:19px; font-weight:800;">{{ t.initials }}</div>
+                <div style="font-size:16px; font-weight:800; margin-top:14px;">{{ t.name }}</div>
+                <div style="font-size:13px; font-weight:600; color:#6c7268; margin-top:2px;">{{ t.role }}</div>
+                <div style="height:1px; background:#f0f2ec; margin:16px 0;"></div>
+                <div style="display:flex; justify-content:space-between;">
+                  <div><div style="font-size:16px; font-weight:800;">{{ t.sessions }}</div><div style="font-size:10.5px; font-weight:600; color:#9aa093;">séances animées</div></div>
+                  <div style="text-align:right;"><div style="font-size:16px; font-weight:800;">{{ t.since }}</div><div style="font-size:10.5px; font-weight:600; color:#9aa093;">dans l'équipe</div></div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ===== PROFIL ===== -->
+        <sc-if value="{{ isProfile }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid; grid-template-columns:300px 1fr; gap:24px; align-items:start;">
+          <div style="background:#fff; border:1px solid #eceee8; border-radius:18px; padding:28px 24px; text-align:center;">
+            <div style="width:88px; height:88px; border-radius:50%; background:#2c4f17; color:#cdeab8; display:flex; align-items:center; justify-content:center; font-size:30px; font-weight:800; margin:0 auto;">TM</div>
+            <div style="font-size:19px; font-weight:800; margin-top:16px;">Thomas Mercier</div>
+            <div style="font-size:13px; font-weight:600; color:#6c7268; margin-top:2px;">Gérant · FitnessPark Rennes</div>
+            <span style="display:inline-block; margin-top:12px; font-size:11px; font-weight:700; color:#3d7d22; background:#eef5e9; padding:5px 12px; border-radius:8px;">Compte vérifié</span>
+            <div style="height:1px; background:#f0f2ec; margin:20px 0;"></div>
+            <div style="display:flex; justify-content:space-around;">
+              <div><div style="font-size:20px; font-weight:800;">14</div><div style="font-size:10.5px; font-weight:600; color:#9aa093;">challenges</div></div>
+              <div><div style="font-size:20px; font-weight:800;">38</div><div style="font-size:10.5px; font-weight:600; color:#9aa093;">actualités</div></div>
+              <div><div style="font-size:20px; font-weight:800;">2 ans</div><div style="font-size:10.5px; font-weight:600; color:#9aa093;">ancienneté</div></div>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div style="background:#fff; border:1px solid #eceee8; border-radius:16px; padding:24px 26px;">
+              <h3 style="font-size:15px; font-weight:800; margin:0 0 18px;">Informations personnelles</h3>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                <div><label style="display:block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#6c7268; margin-bottom:7px;">Prénom</label><input value="Thomas" style="width:100%; height:44px; border:1.5px solid #e1e5dc; border-radius:10px; padding:0 13px; font-size:14px; font-weight:600; background:#fafbf8;"></div>
+                <div><label style="display:block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#6c7268; margin-bottom:7px;">Nom</label><input value="Mercier" style="width:100%; height:44px; border:1.5px solid #e1e5dc; border-radius:10px; padding:0 13px; font-size:14px; font-weight:600; background:#fafbf8;"></div>
+                <div><label style="display:block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#6c7268; margin-bottom:7px;">E-mail</label><input value="t.mercier@fitcrew.fr" style="width:100%; height:44px; border:1.5px solid #e1e5dc; border-radius:10px; padding:0 13px; font-size:14px; font-weight:600; background:#fafbf8;"></div>
+                <div><label style="display:block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#6c7268; margin-bottom:7px;">Téléphone</label><input value="06 12 34 56 78" style="width:100%; height:44px; border:1.5px solid #e1e5dc; border-radius:10px; padding:0 13px; font-size:14px; font-weight:600; background:#fafbf8;"></div>
+              </div>
+            </div>
+            <div style="background:#fff; border:1px solid #eceee8; border-radius:16px; padding:24px 26px;">
+              <h3 style="font-size:15px; font-weight:800; margin:0 0 4px;">Établissement</h3>
+              <p style="font-size:12.5px; font-weight:500; color:#9aa093; margin:0 0 18px;">Coordonnées affichées aux membres.</p>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                <div><label style="display:block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#6c7268; margin-bottom:7px;">Salle</label><input value="FitnessPark Rennes — Villejean" style="width:100%; height:44px; border:1.5px solid #e1e5dc; border-radius:10px; padding:0 13px; font-size:14px; font-weight:600; background:#fafbf8;"></div>
+                <div><label style="display:block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#6c7268; margin-bottom:7px;">Adresse</label><input value="12 rue de Bray, 35700 Rennes (Villejean)" style="width:100%; height:44px; border:1.5px solid #e1e5dc; border-radius:10px; padding:0 13px; font-size:14px; font-weight:600; background:#fafbf8;"></div>
+              </div>
+              <div style="display:flex; gap:12px; margin-top:22px;"><button onClick="{{ saveProfile }}" style="height:46px; padding:0 24px; border:none; border-radius:11px; background:#5eb132; color:#fff; font-size:14px; font-weight:700; cursor:pointer; box-shadow:0 5px 14px rgba(94,177,50,.28);">Enregistrer</button><button onClick="{{ logout }}" style="height:46px; padding:0 22px; border:1.5px solid #e8d5d5; border-radius:11px; background:#fff; color:#b34a4a; font-size:14px; font-weight:700; cursor:pointer;">Se déconnecter</button></div>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+
+        <!--EXTRA-SCREENS-->
+
+      </div>
+    </main>
+  </div>
+  </sc-if>
+
+  <!-- toast -->
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed; bottom:28px; left:50%; transform:translateX(-50%); background:#121212; color:#fff; padding:14px 22px; border-radius:13px; font-size:13.5px; font-weight:600; box-shadow:0 12px 32px rgba(0,0,0,.28); z-index:100; display:flex; align-items:center; gap:10px; animation:fcToast .25s ease both;"><span style="width:22px; height:22px; border-radius:50%; background:#5eb132; display:inline-flex; align-items:center; justify-content:center; font-size:12px;">✓</span>{{ toast }}</div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:960}}">
+class Component extends DCLogic {
+  state = { screen: 'login', dash: 'a', toast: '', ctype: 'challenge' };
+
+  go(s){ this.setState({ screen: s }); const m=document.querySelector('main'); if(m) m.scrollTop=0; }
+  flash(msg){ this.setState({ toast: msg }); clearTimeout(this._t); this._t=setTimeout(()=>this.setState({toast:''}),2600); }
+
+  icon(name){
+    const s='stroke="currentColor" stroke-width="1.9" fill="none" stroke-linecap="round" stroke-linejoin="round"';
+    const P={
+      grid:`<rect x="3" y="3" width="7" height="7" rx="1.5" ${s}/><rect x="14" y="3" width="7" height="7" rx="1.5" ${s}/><rect x="14" y="14" width="7" height="7" rx="1.5" ${s}/><rect x="3" y="14" width="7" height="7" rx="1.5" ${s}/>`,
+      megaphone:`<path d="M3 11v2a1 1 0 0 0 1 1h2l8 5V5L6 10H4a1 1 0 0 0-1 1Z" ${s}/><path d="M17 8a4 4 0 0 1 0 8" ${s}/>`,
+      home:`<path d="M4 11l8-7 8 7" ${s}/><path d="M6 10v9h12v-9" ${s}/><path d="M10 19v-5h4v5" ${s}/>`,
+      tag:`<path d="M3 7v5l9 9 7-7-9-9H3Z" ${s}/><circle cx="7.5" cy="7.5" r="1.4" fill="currentColor" stroke="none"/>`,
+      users:`<circle cx="9" cy="8" r="3.2" ${s}/><path d="M3.5 19a5.5 5.5 0 0 1 11 0" ${s}/><path d="M16 5.5a3 3 0 0 1 0 5.6" ${s}/><path d="M17 13.5a5 5 0 0 1 3.5 5.5" ${s}/>`,
+      user:`<circle cx="12" cy="8" r="3.6" ${s}/><path d="M5 20a7 7 0 0 1 14 0" ${s}/>`,
+      members:`<circle cx="12" cy="12" r="9" ${s}/><path d="M12 7v5l3 2" ${s}/>`,
+      fire:`<path d="M12 3c1 3 4 4 4 8a4 4 0 0 1-8 0c0-1 .5-2 1-2.5C9 11 12 9 12 3Z" ${s}/>`,
+      eye:`<path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z" ${s}/><circle cx="12" cy="12" r="2.6" ${s}/>`,
+      cursor:`<path d="M5 4l5 15 2.5-6L19 11 5 4Z" ${s}/>`
+    };
+    return `<svg viewBox="0 0 24 24" width="100%" height="100%">${P[name]||''}</svg>`;
+  }
+
+  renderVals(){
+    const screen=this.state.screen, dash=this.state.dash, isCh=this.state.ctype==='challenge';
+    const titles={ dashboard:['Pilotage','Tableau de bord'], broadcast:['Diffusion','Diffuser une publication'], page:['Salle','Page de la salle'], partners:['Croissance','Partenaires commerciaux'], team:['Salle','Équipe'], profile:['Compte','Profil du gérant'] };
+    const cur=titles[screen]||titles.dashboard;
+
+    const navIds=['dashboard','broadcast','page','partners','team'];
+    const nav={};
+    navIds.forEach((id)=>{ nav[id]={ go:()=>this.go(id), active: screen===id, off: screen!==id }; });
+
+    const up='#2f8f1e', upBg='#eaf5e2';
+    const kpis=[
+      { label:'Membres actifs', value:'1 284', delta:'+8,2%', sub:'vs mois dernier', icon:{__html:this.icon('members')}, deltaColor:up, deltaBg:upBg },
+      { label:'Engagement challenges', value:'68%', delta:'+5,4 pts', sub:'taux de participation', icon:{__html:this.icon('fire')}, deltaColor:up, deltaBg:upBg },
+      { label:'Vues actualités', value:'5 440', delta:'+12%', sub:'7 derniers jours', icon:{__html:this.icon('eye')}, deltaColor:up, deltaBg:upBg },
+      { label:'Clics offres partenaires', value:'892', delta:'+23%', sub:'7 derniers jours', icon:{__html:this.icon('cursor')}, deltaColor:up, deltaBg:upBg }
+    ];
+    const kpisMini=[
+      { label:'Vues actualités', value:'5 440', delta:'+12%', sub:'7 derniers jours', deltaColor:up, deltaBg:upBg, spark:this.spark([30,34,31,40,44,42,52],200,32) },
+      { label:'Clics offres', value:'892', delta:'+23%', sub:'7 derniers jours', deltaColor:up, deltaBg:upBg, spark:this.spark([12,18,15,22,28,26,34],200,32) }
+    ];
+
+    // line chart
+    const vals=[52,55,58,57,61,63,66,68], labels=['S1','S2','S3','S4','S5','S6','S7','S8'];
+    const W=680,H=200,min=45,max=75;
+    const xs=i=>i*(W/(vals.length-1));
+    const ys=v=>H-((v-min)/(max-min))*(H-20)-6;
+    const dots=vals.map((v,i)=>({x:+xs(i).toFixed(1),y:+ys(v).toFixed(1),label:labels[i]}));
+    const linePts=dots.map(d=>`${d.x},${d.y}`).join(' ');
+    const areaPts=`0,${H} `+linePts+` ${W},${H}`;
+    const grid=[75,65,55,45].map(v=>({y:+ys(v).toFixed(1),ty:+(ys(v)-4).toFixed(1),label:v+'%'}));
+    const sparkPts=this.spark(vals,300,60);
+
+    const donutRaw=[['Assiduité',45,'#5eb132'],['Performance',32,'#2f6b1c'],['Endurance',23,'#b9d3a8']];
+    const C=2*Math.PI*54; let off=0;
+    const donut=donutRaw.map(([label,v,color])=>{ const dash=`${(v/100*C).toFixed(1)} ${(C-v/100*C).toFixed(1)}`; const o=(-off/100*C).toFixed(1); off+=v; return { label, color, pct:v+'%', dash, offset:o }; });
+
+    const challenges=[
+      { name:'4 séances cette semaine', type:'Assiduité', emoji:'🔥', tint:'#fde9d6', tagColor:'#b4651a', tagBg:'#fbeede', participants:'312', engagement:'68%', barPct:97, completion:64, compColor:'#5eb132', spark:this.spark([20,28,26,34,40],70,22), trendColor:'#2f8f1e' },
+      { name:'Défi gainage 30 jours', type:'Endurance', emoji:'🧘', tint:'#e3edf6', tagColor:'#2c6394', tagBg:'#e7f0f7', participants:'154', engagement:'52%', barPct:48, completion:41, compColor:'#5eb132', spark:this.spark([30,26,24,22,20],70,22), trendColor:'#b08019' },
+      { name:'Max développé couché', type:'Performance', emoji:'🏋️', tint:'#eae5f6', tagColor:'#5b3da0', tagBg:'#efeaf8', participants:'86', engagement:'74%', barPct:27, completion:58, compColor:'#5eb132', spark:this.spark([10,14,18,22,28],70,22), trendColor:'#2f8f1e' },
+      { name:'Squat challenge reps', type:'Performance', emoji:'🦵', tint:'#eae5f6', tagColor:'#5b3da0', tagBg:'#efeaf8', participants:'64', engagement:'61%', barPct:20, completion:47, compColor:'#5eb132', spark:this.spark([16,18,17,20,24],70,22), trendColor:'#2f8f1e' }
+    ];
+
+    const news=[
+      { title:'Nouveau partenariat — Prozis −20% sur les protéines', meta:'Partenariat · 2 340 vues · 412 clics · il y a 2 j', dot:'#5eb132' },
+      { title:'Nouvelles machines installées au pôle Crossfit', meta:'Interne · 1 980 vues · il y a 4 j', dot:'#2c6394' },
+      { title:'Cours collectif HIIT tous les samedis 10h', meta:'Interne · 1 120 vues · il y a 6 j', dot:'#b4651a' }
+    ];
+
+    const funnel=[
+      { label:'Vues actualités', value:'5 440', pct:100, rate:'100%', color:'#1f211d' },
+      { label:'Clics sur offre', value:'892', pct:42, rate:'16%', color:'#3d7d22' },
+      { label:'Conversions partenaire', value:'213', pct:18, rate:'24% des clics', color:'#5eb132' }
+    ];
+
+    const ranks=['#c79a2b','#9aa093','#b07a3a','#cfd4ca','#cfd4ca'];
+    const lbRaw=[['Camille R.','CR','#2c4f17',18,'pts 2 940',24],['Yanis B.','YB','#3a6b7a',15,'pts 2 710',21],['Inès M.','IM','#7a4a3a',14,'pts 2 480',20],['Léo F.','LF','#4a3a7a',12,'pts 2 190',18],['Sarah K.','SK','#6b3a5a',11,'pts 1 980',17]];
+    const leaderboard=lbRaw.map((m,i)=>({ rank:i+1, rankColor:ranks[i], name:m[0], initials:m[1], color:m[2], streak:m[3]+' j', pts:m[4].replace('pts ',''), sessions:m[5] }));
+
+    const wk=[220,260,300,280,340,410,180], wkMax=420, dayN=['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
+    const weekBars=wk.map((v,i)=>({ value:v, h:Math.round(v/wkMax*148), day:dayN[i], color:i===5?'#5eb132':'#cfe3bd' }));
+
+    return {
+      isLogin: screen==='login', isApp: screen!=='login',
+      isDashboard: screen==='dashboard', isVarA: dash==='a', isVarB: dash==='b',
+      crumb: cur[0], pageTitle: cur[1], toast: this.state.toast,
+      nav,
+      icoGrid:{__html:this.icon('grid')}, icoMega:{__html:this.icon('megaphone')}, icoHome:{__html:this.icon('home')}, icoTag:{__html:this.icon('tag')}, icoUsers:{__html:this.icon('users')},
+      login:()=>this.go('dashboard'), logout:(e)=>{ if(e&&e.stopPropagation)e.stopPropagation(); this.go('login'); },
+      goProfile:()=>this.go('profile'), goBroadcast:()=>this.go('broadcast'),
+      setVarA:()=>this.setState({dash:'a'}), setVarB:()=>this.setState({dash:'b'}),
+      kpis, kpisMini, linePts, areaPts, dots, grid, donut, challenges, news, funnel, leaderboard, weekBars, sparkPts,
+      // broadcast
+      isBroadcast: screen==='broadcast', isChallenge: this.state.ctype==='challenge', isActu: this.state.ctype==='actu',
+      setChallenge:()=>this.setState({ctype:'challenge'}), setActu:()=>this.setState({ctype:'actu'}),
+      publish:()=>this.flash('Publication diffusée à 1 284 membres ✓'),
+      chBorder: isCh?'#5eb132':'#e1e5dc', chBg: isCh?'#eef5e9':'#fafbf8',
+      acBorder: !isCh?'#5eb132':'#e1e5dc', acBg: !isCh?'#eef5e9':'#fafbf8',
+      formTitle: isCh?'Viens t\u2019entra\u00eener 4 fois cette semaine':'Nouveau partenariat \u2014 Prozis \u00b7 \u221220%',
+      formBody: isCh?'Encha\u00eene 4 s\u00e9ances avant dimanche soir et d\u00e9bloque ton badge. Chaque check-in en salle compte automatiquement !':'B\u00e9n\u00e9ficie de \u221220% sur toute la gamme prot\u00e9ines Prozis avec ton statut membre FitCrew. Offre valable jusqu\u2019au 31 juillet.',
+      titlePh: isCh?'Ex. Viens t\u2019entra\u00eener 4 fois cette semaine':'Ex. Nouvelles machines au p\u00f4le Crossfit',
+      bodyPh: isCh?'D\u00e9crivez l\u2019objectif du challenge\u2026':'D\u00e9crivez votre actualit\u00e9\u2026',
+      objTypes:[
+        {label:'Assiduit\u00e9', border:'#5eb132', bg:'#eef5e9', color:'#3d7d22'},
+        {label:'Performance', border:'#e1e5dc', bg:'#fafbf8', color:'#6c7268'},
+        {label:'Endurance', border:'#e1e5dc', bg:'#fafbf8', color:'#6c7268'}
+      ],
+      prevHeroBg: isCh?'linear-gradient(135deg,#fde9d6,#fbe0c4)':'linear-gradient(135deg,#1a1c18,#121212)',
+      prevEmoji: isCh?'🔥':'🤝', prevTag: isCh?'Challenge \u00b7 Assiduit\u00e9':'Partenariat',
+      prevTitle: isCh?'Viens t\u2019entra\u00eener 4 fois cette semaine':'Prozis \u00b7 \u221220% sur les prot\u00e9ines',
+      prevBody: isCh?'Encha\u00eene 4 s\u00e9ances avant dimanche soir et d\u00e9bloque ton badge \u00ab R\u00e9gulier \u00bb.':'B\u00e9n\u00e9ficie de \u221220% sur toute la gamme avec ton statut membre FitCrew.',
+      prevCta: isCh?'Je participe':'Voir l\u2019offre',
+      // page de la salle
+      isPage: screen==='page',
+      sections:[
+        {emoji:'🔥', name:'Challenge en cours', desc:'Mis en avant en haut du fil', tgBg:'#5eb132', tgPos:'right'},
+        {emoji:'📣', name:'Actualités & partenariats', desc:'Fil des publications', tgBg:'#5eb132', tgPos:'right'},
+        {emoji:'📅', name:'Planning des cours collectifs', desc:'HIIT, RPM, Yoga…', tgBg:'#5eb132', tgPos:'right'},
+        {emoji:'🏆', name:'Classement de la salle', desc:'Top membres de la semaine', tgBg:'#cfd6c8', tgPos:'left'}
+      ],
+      // partenaires
+      isPartners: screen==='partners',
+      partners:[
+        {name:'Prozis', abbr:'PZ', bg:'#121212', fg:'#8fd06a', cat:'Nutrition', offer:'−20% protéines', clicks:'412', conv:'98', status:'Actif', stColor:'#3d7d22', stBg:'#eef5e9'},
+        {name:'MyProtein', abbr:'MP', bg:'#0d2a52', fg:'#7fb0ef', cat:'Nutrition', offer:'−15% 1ère commande', clicks:'248', conv:'61', status:'Actif', stColor:'#3d7d22', stBg:'#eef5e9'},
+        {name:'Gymshark', abbr:'GS', bg:'#1a1a1a', fg:'#dddddd', cat:'Textile', offer:'Code FITCREW10', clicks:'156', conv:'34', status:'Actif', stColor:'#3d7d22', stBg:'#eef5e9'},
+        {name:'Foodspring', abbr:'FS', bg:'#173d2a', fg:'#7fd6a3', cat:'Nutrition', offer:'Offre à venir', clicks:'76', conv:'20', status:'En pause', stColor:'#9a7a2a', stBg:'#f7f1e0'}
+      ],
+      // équipe
+      isTeam: screen==='team',
+      team:[
+        {name:'Thomas Mercier', initials:'TM', color:'#2c4f17', role:'Gérant', tag:'Gérant', roleColor:'#3d7d22', roleBg:'#eef5e9', sessions:'—', since:'2 ans'},
+        {name:'Laura Bénard', initials:'LB', color:'#7a4a3a', role:'Coach Cross-training', tag:'Coach', roleColor:'#6c7268', roleBg:'#f1f3ee', sessions:'312', since:'3 ans'},
+        {name:'Karim Haddad', initials:'KH', color:'#3a6b7a', role:'Coach Musculation', tag:'Coach', roleColor:'#6c7268', roleBg:'#f1f3ee', sessions:'284', since:'2 ans'},
+        {name:'Sophie Lemaire', initials:'SL', color:'#6b3a5a', role:'Coach Cardio / RPM', tag:'Coach', roleColor:'#6c7268', roleBg:'#f1f3ee', sessions:'198', since:'1 an'},
+        {name:'Nadia Cherif', initials:'NC', color:'#4a3a7a', role:'Coach Yoga & Mobilité', tag:'Coach', roleColor:'#6c7268', roleBg:'#f1f3ee', sessions:'141', since:'1 an'},
+        {name:'Diego Fernandez', initials:'DF', color:'#7a5a2a', role:'Accueil & adhésions', tag:'Staff', roleColor:'#6c7268', roleBg:'#f1f3ee', sessions:'—', since:'8 mois'}
+      ],
+      // profil
+      isProfile: screen==='profile',
+      saveProfile:()=>this.flash('Profil enregistré ✓')
+    };
+  }
+
+  spark(vals,w,h){
+    const min=Math.min(...vals),max=Math.max(...vals),pad=2;
+    return vals.map((v,i)=>{ const x=(i*(w/(vals.length-1))).toFixed(1); const y=(h-pad-((v-min)/((max-min)||1))*(h-pad*2)).toFixed(1); return `${x},${y}`; }).join(' ');
+  }
+}
+</script>
+</body>
+</html>
